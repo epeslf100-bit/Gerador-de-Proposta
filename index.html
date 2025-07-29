@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proposta Rápida - Gere Propostas com Um Clique</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   </head>
   <body class="bg-white text-gray-800 font-sans">
-
     <!-- Hero -->
     <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-br from-indigo-600 to-blue-500 text-white">
       <h1 class="text-4xl md:text-6xl font-bold mb-4">Propostas com Um Clique</h1>
@@ -19,57 +17,21 @@
     <!-- Formulário -->
     <section id="formulario" class="py-16 px-6 max-w-3xl mx-auto">
       <h2 class="text-3xl font-bold text-center mb-8">Preencha os dados</h2>
-      <form id="formProposta" class="space-y-4">
-        <input type="text" placeholder="Nome do Cliente" id="cliente" required class="w-full border p-3 rounded" />
-        <textarea placeholder="Escopo do Projeto" id="escopo" rows="4" required class="w-full border p-3 rounded"></textarea>
-        <input type="text" placeholder="Valor (R$)" id="valor" required class="w-full border p-3 rounded" />
-        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700">Gerar Proposta</button>
+      <form action="https://formspree.io/f/xyzpjrgq" method="POST" class="space-y-4">
+        <input type="text" name="cliente" placeholder="Nome do Cliente" required class="w-full border p-3 rounded" />
+        <textarea name="escopo" placeholder="Escopo do Projeto" rows="4" required class="w-full border p-3 rounded"></textarea>
+        <input type="text" name="valor" placeholder="Valor (R$)" required class="w-full border p-3 rounded" />
+        <input type="email" name="email" placeholder="Seu E-mail" required class="w-full border p-3 rounded" />
+        <input type="hidden" name="_redirect" value="obrigado.html" />
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700">
+          Enviar Proposta
+        </button>
       </form>
-    </section>
-
-    <!-- Resultado -->
-    <section class="py-16 px-6 bg-gray-50 hidden" id="resultadoContainer">
-      <h2 class="text-3xl font-bold text-center mb-6">Proposta Gerada</h2>
-      <div id="propostaVisual" class="bg-white shadow p-6 rounded max-w-2xl mx-auto border">
-        <h3 class="text-xl font-semibold mb-2">Proposta Comercial</h3>
-        <p><strong>Cliente:</strong> <span id="outCliente"></span></p>
-        <p><strong>Escopo:</strong> <span id="outEscopo"></span></p>
-        <p><strong>Valor:</strong> R$ <span id="outValor"></span></p>
-        <p class="mt-4 italic text-gray-500">Esta proposta foi gerada automaticamente com base nos dados fornecidos.</p>
-      </div>
-      <div class="text-center mt-6">
-        <button onclick="baixarPDF()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Baixar em PDF</button>
-      </div>
     </section>
 
     <!-- Rodapé -->
     <footer class="text-center py-6 bg-white text-sm text-gray-500">
-  © 2025 Proposta Rápida — Criado com ❤️ pela empresa Dextrion
-</footer>
-
-    <!-- Script -->
-    <script>
-      const form = document.getElementById('formProposta');
-      const resultado = document.getElementById('resultadoContainer');
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const cliente = document.getElementById('cliente').value;
-        const escopo = document.getElementById('escopo').value;
-        const valor = document.getElementById('valor').value;
-
-        document.getElementById('outCliente').textContent = cliente;
-        document.getElementById('outEscopo').textContent = escopo;
-        document.getElementById('outValor').textContent = valor;
-
-        resultado.classList.remove('hidden');
-        window.scrollTo({ top: resultado.offsetTop, behavior: 'smooth' });
-      });
-
-      function baixarPDF() {
-        const element = document.getElementById('propostaVisual');
-        html2pdf().set({ margin: 10, filename: 'proposta.pdf' }).from(element).save();
-      }
-    </script>
+      © 2025 Proposta Rápida — Criado pela empresa Dextrion
+    </footer>
   </body>
 </html>
